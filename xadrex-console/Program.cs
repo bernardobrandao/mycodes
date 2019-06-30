@@ -1,12 +1,15 @@
 ﻿using System;
+using board;
 
-namespace xadrex_console
+namespace chess_console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Board br = new Board(8, 8);
+            Screen.printBoard(br);
+
         }
     }
 }
