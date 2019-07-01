@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chess-console", "xadrex-console\chess-console.csproj", "{0928017B-696A-469B-96AB-FDA885881095}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chess-console", "chess-console\chess-console.csproj", "{F697D4A4-DABA-4FF9-8CFC-4925DE0D9874}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0928017B-696A-469B-96AB-FDA885881095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0928017B-696A-469B-96AB-FDA885881095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0928017B-696A-469B-96AB-FDA885881095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0928017B-696A-469B-96AB-FDA885881095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F697D4A4-DABA-4FF9-8CFC-4925DE0D9874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F697D4A4-DABA-4FF9-8CFC-4925DE0D9874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F697D4A4-DABA-4FF9-8CFC-4925DE0D9874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F697D4A4-DABA-4FF9-8CFC-4925DE0D9874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {984B5AF4-7EAD-42E0-81A1-A692DEA2FE51}
+		SolutionGuid = {55A1907F-13C9-4BD7-9E75-8FB4C8386170}
 	EndGlobalSection
 EndGlobal
