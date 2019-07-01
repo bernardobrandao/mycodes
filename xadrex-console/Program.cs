@@ -9,18 +9,26 @@ namespace chess_console
     {
         static void Main(string[] args)
         {
-            Board br = new Board(8, 8);
-            br.putPiece(new Rook(br, Color.Black), new Position(0, 0));
-            br.putPiece(new Rook(br, Color.Black), new Position(1, 3));
-            br.putPiece(new King(br, Color.Black), new Position(2, 4));
+            try {
+                Board br = new Board(8, 8);
+                br.putPiece(new Rook(br, Color.Black), new Position(0, 0));
+                br.putPiece(new Rook(br, Color.Black), new Position(1, 3));
+                br.putPiece(new King(br, Color.Black), new Position(0, 0));
 
 
 
-            Screen.printBoard(br);
+                Screen.printBoard(br);
+                
+
+            }catch (BoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
             Console.ReadLine();
 
-        }
 
+        }
         
 
 
