@@ -16,5 +16,11 @@ namespace board
             this.color = color;
             this.noMoviments = 0;
         }
+
+        public void increaseNoMoviments()
+        {
+            noMoviments++;
+
+        }
     }
 }

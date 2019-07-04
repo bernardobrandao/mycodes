@@ -10,14 +10,23 @@ namespace chess_console
         static void Main(string[] args)
         {
             try {
-                Board br = new Board(8, 8);
-                br.putPiece(new Rook(br, Color.Black), new Position(0, 0));
-                br.putPiece(new Rook(br, Color.Black), new Position(1, 3));
-                br.putPiece(new King(br, Color.Black), new Position(1, 4));
+                ChessGame game = new ChessGame();
+                while (!game.finished)
+                {
+                    Console.Clear();
+                    Screen.printBoard(game.br);
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.readChessPosition().toPosition();
 
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.readChessPosition().toPosition();
 
+                    game.performsMoviment(origin, destiny);
 
-                Screen.printBoard(br);
+                }
+                
+                Screen.printBoard(game.br);
                 
 
             }catch (BoardException e)
