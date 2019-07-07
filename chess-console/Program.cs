@@ -15,10 +15,15 @@ namespace chess_console
                 {
                     Console.Clear();
                     Screen.printBoard(game.br);
+
                     Console.WriteLine();
                     Console.Write("Origin: ");
                     Position origin = Screen.readChessPosition().toPosition();
+                    bool[,] possiblePositions = game.br.piece(origin).possibleMoviments();
+                    Console.Clear();
+                    Screen.printBoard(game.br, possiblePositions);
 
+                    Console.WriteLine();
                     Console.Write("Destiny: ");
                     Position destiny = Screen.readChessPosition().toPosition();
 

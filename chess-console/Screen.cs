@@ -11,24 +11,44 @@ namespace chess_console
             for (int i=0; i<br.lines; i++)
             {
                 Console.Write(8 - i + " ");
-                for (int j=0; j<br.columns; j++)
+                for (int j = 0; j < br.columns; j++)
                 {
-                    if (br.piece(i, j) == null)
-                    {
-                        Console.Write("- ");
-                    }
-                    else
-                    {
-                        printPiece(br.piece(i,j));
-                        Console.Write(" ");
-
-                    }
+                    printPiece(br.piece(i, j));
+                    
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
 
         }
+
+        public static void printBoard(Board br, bool[,] possiblePositions)
+        {
+            ConsoleColor originalBackground = Console.BackgroundColor;
+            ConsoleColor alteredBackground = ConsoleColor.DarkGray;
+            for (int i = 0; i < br.lines; i++)
+            {
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < br.columns; j++)
+                {
+                    if (possiblePositions[i, j])
+                    {
+                        Console.BackgroundColor = alteredBackground;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = originalBackground;
+                    }
+                    printPiece(br.piece(i, j));
+                    Console.BackgroundColor = originalBackground;
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("  a b c d e f g h");
+            Console.BackgroundColor = originalBackground;
+
+        }
+
 
         public static ChessPosition readChessPosition()
         {
@@ -44,7 +64,13 @@ namespace chess_console
 
         public static void printPiece(Piece piece)
         {
-            if (piece.color == Color.White)
+            if(piece == null)
+            {
+                Console.Write("- ");
+            }
+            else
+            {
+                  if (piece.color == Color.White)
             {
                 Console.Write(piece);
             }
@@ -55,6 +81,10 @@ namespace chess_console
                 Console.Write(piece);
                 Console.ForegroundColor = aux;
             }
+            }
+
+
+          
         }
 
     }
