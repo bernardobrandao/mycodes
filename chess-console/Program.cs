@@ -13,21 +13,36 @@ namespace chess_console
                 ChessGame game = new ChessGame();
                 while (!game.finished)
                 {
-                    Console.Clear();
-                    Screen.printBoard(game.br);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printGame(game);
 
-                    Console.WriteLine();
-                    Console.Write("Origin: ");
-                    Position origin = Screen.readChessPosition().toPosition();
-                    bool[,] possiblePositions = game.br.piece(origin).possibleMoviments();
-                    Console.Clear();
-                    Screen.printBoard(game.br, possiblePositions);
 
-                    Console.WriteLine();
-                    Console.Write("Destiny: ");
-                    Position destiny = Screen.readChessPosition().toPosition();
 
-                    game.performsMoviment(origin, destiny);
+                        Console.WriteLine();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.readChessPosition().toPosition();
+                        game.validateOriginPosition(origin);
+
+                        bool[,] possiblePositions = game.br.piece(origin).possibleMoviments();
+
+                        Console.Clear();
+                        Screen.printBoard(game.br, possiblePositions);
+
+                        Console.WriteLine();
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.readChessPosition().toPosition();
+                        game.validateDestinyPosition(origin, destiny);
+
+                        game.makeaMove(origin, destiny);
+                    } catch (BoardException e)
+                    
+{
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Please try again by pressing enter on the keyboard");
+                        Console.ReadLine();
+                    }
 
                 }
                 
