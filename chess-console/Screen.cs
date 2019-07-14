@@ -10,10 +10,15 @@ namespace chess_console
         public static void printGame(ChessGame game)
         {
             printBoard(game.br);
+            Console.WriteLine();
             printCapturedPieces(game);
             Console.WriteLine();
             Console.WriteLine("Shift: " + game.shift);
             Console.WriteLine("Waiting a move: " + game.currentPlayer);
+            if (game.check)
+            {
+                Console.Write("You are in check mate!");
+            }
         }
 
         public static void printCapturedPieces(ChessGame game)
@@ -24,8 +29,10 @@ namespace chess_console
             printSet(game.capturedPiece(Color.White));
             Console.WriteLine();
             Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
             printSet(game.capturedPiece(Color.Black));
+            Console.ForegroundColor = aux;
             Console.WriteLine();
 
         }
@@ -44,6 +51,7 @@ namespace chess_console
         {
             for (int i = 0; i < br.lines; i++)
             {
+                
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < br.columns; j++)
                 {
@@ -111,6 +119,7 @@ namespace chess_console
                     Console.Write(piece);
                     Console.ForegroundColor = aux;
                 }
+                Console.Write(" ");
             }
 
 
