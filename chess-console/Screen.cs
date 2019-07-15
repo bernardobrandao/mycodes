@@ -14,12 +14,22 @@ namespace chess_console
             printCapturedPieces(game);
             Console.WriteLine();
             Console.WriteLine("Shift: " + game.shift);
-            Console.WriteLine("Waiting a move: " + game.currentPlayer);
-            if (game.check)
+
+            if (!game.finished)
             {
-                Console.Write("You are in check mate!");
+                Console.WriteLine("Waiting a move: " + game.currentPlayer);
+                if (game.check)
+                {
+                    Console.Write("You are in check mate!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Check mate!");
+                Console.WriteLine("Winner is " + game.currentPlayer);
             }
         }
+
 
         public static void printCapturedPieces(ChessGame game)
         {

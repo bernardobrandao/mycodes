@@ -68,9 +68,18 @@ namespace chess
             {
                 check = false;
             }
+            if (checkMateTest(adversary(currentPlayer)))
+            {
+                finished = true;
 
-            shift++;
-            changePlayer();
+            }
+            else
+            {
+                shift++;
+                changePlayer();
+            }
+
+          
         }
         public void validateOriginPosition(Position pos)
         {
@@ -182,6 +191,38 @@ namespace chess
             return false;
         }
 
+        public bool checkMateTest(Color color)
+        {
+            if (!checkMate(color))
+            {
+                return false;
+            }
+            foreach (Piece x in piecesOnGame(color))
+            {
+                bool[,] mat = x.possibleMoviments();
+                for (int i=0; i<br.lines; i++)
+                {
+                    for (int j=0; j<br.columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = performsMoviment(origin, destiny);
+                            bool checkTest = checkMate(color);
+                            undoTheMove(origin, destiny, capturedPiece);
+                            if (!checkTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+            }
+            return true;
+        }
+
         public void putNewPiece(char column, int line, Piece piece)
         {
             br.putPiece(piece, new ChessPosition(column, line).toPosition());
@@ -191,12 +232,42 @@ namespace chess
         private void putPieces()
         {
             putNewPiece('a', 1, new Rook(br, Color.White));
-            putNewPiece('h', 1, new Rook(br, Color.White));
+            putNewPiece('b', 1, new Knight(br, Color.White));
+            putNewPiece('c', 1, new Bishop(br, Color.White));
+            putNewPiece('d', 1, new Queen(br, Color.White));
             putNewPiece('e', 1, new King(br, Color.White));
-            putNewPiece('a', 8, new Rook(br, Color.Black));
-            putNewPiece('h', 8, new Rook(br, Color.Black));
-            putNewPiece('e', 8, new King(br, Color.Black));
+            putNewPiece('f', 1, new Bishop(br, Color.White));
+            putNewPiece('g', 1, new Knight(br, Color.White));
+            putNewPiece('h', 1, new Rook(br, Color.White));
+
+            putNewPiece('a', 2, new Pawn(br, Color.White));
+            putNewPiece('b', 2, new Pawn(br, Color.White));
+            putNewPiece('c', 2, new Pawn(br, Color.White));
+            putNewPiece('d', 2, new Pawn(br, Color.White));
+            putNewPiece('e', 2, new Pawn(br, Color.White));
+            putNewPiece('f', 2, new Pawn(br, Color.White));
+            putNewPiece('g', 2, new Pawn(br, Color.White));
+            putNewPiece('h', 2, new Pawn(br, Color.White));
             
+                                 
+            putNewPiece('a', 8, new Rook(br, Color.Black));
+            putNewPiece('b', 8, new Knight(br, Color.Black));
+            putNewPiece('c', 8, new Bishop(br, Color.Black));
+            putNewPiece('d', 8, new Queen(br, Color.Black));
+            putNewPiece('e', 8, new King(br, Color.Black));
+            putNewPiece('f', 8, new Bishop(br, Color.Black));
+            putNewPiece('g', 8, new Knight(br, Color.Black));
+            putNewPiece('h', 8, new Rook(br, Color.Black));
+
+            putNewPiece('a', 7, new Pawn(br, Color.Black));
+            putNewPiece('b', 7, new Pawn(br, Color.Black));
+            putNewPiece('c', 7, new Pawn(br, Color.Black));
+            putNewPiece('d', 7, new Pawn(br, Color.Black));
+            putNewPiece('e', 7, new Pawn(br, Color.Black));
+            putNewPiece('f', 7, new Pawn(br, Color.Black));
+            putNewPiece('g', 7, new Pawn(br, Color.Black));
+            putNewPiece('h', 7, new Pawn(br, Color.Black));
+
         }
 
     }
