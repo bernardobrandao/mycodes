@@ -35,6 +35,27 @@ namespace chess
             {
                 captured.Add(capturedPiece);
             }
+            
+            //Special Moviment Castling
+            if (p is King && destiny.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position destinyR = new Position(origin.line, origin.column + 1);
+                Piece R = br.throwPiece(originR);
+                R.increaseNoMoviments();
+                br.putPiece(R, destinyR);
+            }
+
+            //Big Castling
+            if (p is King && destiny.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position destinyR = new Position(origin.line, origin.column - 1);
+                Piece R = br.throwPiece(originR);
+                R.increaseNoMoviments();
+                br.putPiece(R, destinyR);
+            }
+
             return capturedPiece;
         }
         public void undoTheMove(Position origin, Position destiny, Piece capturedPiece)
@@ -47,6 +68,25 @@ namespace chess
                 captured.Remove(capturedPiece);
             }
             br.putPiece(p, origin);
+
+            if (p is King && destiny.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position destinyR = new Position(origin.line, origin.column + 1);
+                Piece R = br.throwPiece(destinyR);
+                R.decreaseNoMoviments();
+                br.putPiece(R, originR);
+            }
+
+            //Big Castling
+            if (p is King && destiny.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position destinyR = new Position(origin.line, origin.column - 1);
+                Piece R = br.throwPiece(destinyR);
+                R.decreaseNoMoviments();
+                br.putPiece(R, originR);
+            }
 
         }
 
@@ -235,7 +275,7 @@ namespace chess
             putNewPiece('b', 1, new Knight(br, Color.White));
             putNewPiece('c', 1, new Bishop(br, Color.White));
             putNewPiece('d', 1, new Queen(br, Color.White));
-            putNewPiece('e', 1, new King(br, Color.White));
+            putNewPiece('e', 1, new King(br, Color.White, this));
             putNewPiece('f', 1, new Bishop(br, Color.White));
             putNewPiece('g', 1, new Knight(br, Color.White));
             putNewPiece('h', 1, new Rook(br, Color.White));
@@ -254,7 +294,7 @@ namespace chess
             putNewPiece('b', 8, new Knight(br, Color.Black));
             putNewPiece('c', 8, new Bishop(br, Color.Black));
             putNewPiece('d', 8, new Queen(br, Color.Black));
-            putNewPiece('e', 8, new King(br, Color.Black));
+            putNewPiece('e', 8, new King(br, Color.Black, this));
             putNewPiece('f', 8, new Bishop(br, Color.Black));
             putNewPiece('g', 8, new Knight(br, Color.Black));
             putNewPiece('h', 8, new Rook(br, Color.Black));

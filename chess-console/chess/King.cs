@@ -4,7 +4,11 @@ namespace chess
 {
     class King : Piece
     {
-        public King(Board br, Color color) : base(br, color) {
+        private ChessGame game;
+
+        public King(Board br, Color color, ChessGame game) : base(br, color)
+        {
+            this.game = game;
         }
         public override string ToString() {
             return "K";
@@ -14,6 +18,11 @@ namespace chess
         {
             Piece p = br.piece(pos);
             return p == null || p.color != color;
+        }
+        private bool rookTestForCastling(Position pos)
+        {
+            Piece p = br.piece(pos);
+            return p != null && p is Rook && p.color == color && p.noMoviments == 0;
         }
 
 
@@ -68,6 +77,38 @@ namespace chess
             if (br.validPosition(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
+            }
+
+            //special move Castling
+
+            if(noMoviments == 0 && !game.check)
+            {
+                Position posR1 = new Position(position.line, position.column + 3);
+                if (rookTestForCastling(posR1))
+                {
+                    Position p1 = new Position(position.line, position.column + 1);
+                    Position p2 = new Position(position.line, position.column + 1);
+                    if (br.piece(p1) == null && br.piece(p2) == null)
+                    {
+                        mat[position.line, position.column + 2] = true;
+                    }
+                }
+            }
+
+            //special move Big Castling
+            if (noMoviments == 0 && !game.check)
+            {
+                Position posR2 = new Position(position.line, position.column - 4);
+                if (rookTestForCastling(posR2))
+                {
+                    Position p1 = new Position(position.line, position.column - 1);
+                    Position p2 = new Position(position.line, position.column - 2);
+                    Position p3 = new Position(position.line, position.column - 3);
+                    if (br.piece(p1) == null && br.piece(p2) == null && br.piece(p3) == null)
+                    {
+                        mat[position.line, position.column - 2] = true;
+                    }
+                }
             }
 
             return mat;
