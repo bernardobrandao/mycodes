@@ -142,6 +142,21 @@ namespace chess
                 undoTheMove(origin, destiny, capturedPiece);
                 throw new BoardException("You can not put yourself in checkmate!");
             }
+            Piece p = br.piece(destiny);
+            //SPecial moviment Promotion
+            if(p is Pawn)
+            {
+                if((p.color == Color.White && destiny.line == 0) || (p.color == Color.Black && destiny.line == 7))
+                {
+                    p = br.throwPiece(destiny);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(br, p.color);
+                    br.putPiece(queen, destiny);
+                    pieces.Add(queen);
+                }
+            }
+
+
             if (checkMate(adversary(currentPlayer)))
             {
                 check = true;
@@ -161,7 +176,7 @@ namespace chess
                 changePlayer();
             }
 
-            Piece p = br.piece(destiny);
+         
             //Specialmoviment En Passant
             if (p is Pawn && (destiny.line == origin.line - 2 || destiny.line == origin.line + 2))
             {
